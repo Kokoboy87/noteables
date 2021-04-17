@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Notent Notables</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="container register hidden">
+				<form action="register/" id="signup" method="POST">
+					{% csrf_token %}
+					<h1>Registration</h1>
+					<div class="form-field">
+						<input type="text" id="first_name" name="first_name" placeholder="First Name" autocomplete="off" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<input type="text" id="last_name" name="last_name" placeholder="Last Name" autocomplete="off" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<input type="email" id="reg_email" name="reg_email" placeholder="Email" autocomplete="off" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<input type="password" id="reg_pw" name="reg_pw" placeholder="Password" autocomplete="off" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<input type="password" id="reg_confirm_pw" name="reg_confirm_pw" placeholder="Confirm Password" autocomplete="off" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<button id="submit_btn" type="submit" class="btn btn-primary">Register</button>
+						<small></small>
+					</div>
+					<div class="not reg-note">Already have account?</div>
+					<a href="#modal" class="close-modal">Sign in</a>
+				</form>
+			</div>
+			<div class="container login">
+				<form action="login/" id="login" method="POST">
+					{% csrf_token %}
+					<img src="{% static 'img/notent-logo.png' %}" alt="That Notent logo" />
+					<div class="form-field">
+						<input type="text" id="login_email" name="login_email" placeholder="Email" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<input type="password" id="login_pw" name="login_pw" placeholder="Password" />
+						<small></small>
+					</div>
+					<div class="form-field">
+						<button type="submit" class="btn btn-primary">Log In</button>
+						<small></small>
+					</div>
+					<div class="not log-note">Don't have an account?</div>
+					<a href="#modal" class="modal-trigger">Create Account</a>
+					<!-- <div class="message_wrapper">
+						{% if messages %}
+						<ul class="messages">
+							{% for msg in messages %}
+							<li>{{ msg }}</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+					</div> -->
+				</form>
+			</div>
+		</div>
+		<div class="overlay hidden"></div>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script src="{% static 'js/app.js' %}"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>
