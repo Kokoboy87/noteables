@@ -1,5 +1,5 @@
 # noteables
-Group Project for a note application with TinyMCE.
+Group Project for a note application with TinyMCE API.
 The back-end is with Django and for the validations in the login and registeration 
 page use javaScript.
 
