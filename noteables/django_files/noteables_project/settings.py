@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from django.core.exceptions import ImproperlyConfigured
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,13 +21,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# Set DJANGO_DEBUG=True only on your own machine.
+DEBUG = os.environ.get('DJANGO_DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['noteables07.herokuapp.com', '127.0.0.1']
+# SECURITY WARNING: keep the secret key used in production secret!
+# Set DJANGO_SECRET_KEY in the environment (on PythonAnywhere: in the WSGI file).
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'local-dev-only-key' if DEBUG else None)
+if not SECRET_KEY:
+    raise ImproperlyConfigured('Set the DJANGO_SECRET_KEY environment variable.')
+
+# Comma-separated, e.g. DJANGO_ALLOWED_HOSTS=yourname.pythonanywhere.com
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+CSRF_TRUSTED_ORIGINS = ['https://' + host for host in ALLOWED_HOSTS]
 
 
 # Application definition
@@ -43,7 +51,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -112,9 +119,10 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
+
+# Keep integer primary keys, matching the existing migrations
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Static files (CSS, JavaScript, Images)
